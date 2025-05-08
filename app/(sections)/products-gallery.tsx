@@ -9,7 +9,7 @@ import {
 import axios from "axios"
 
 import { Input } from "@/components/ui/input"
-import { useToast } from "@/components/ui/use-toast"
+import { toast } from "sonner";
 
 import { ProductProps, ProductGalleryProps } from "@/lib/types"
 import ProductCard from "@/components/custom/product-card"
@@ -21,8 +21,7 @@ export default function ProductGallery({
     setIsLoading,
 }: ProductGalleryProps) {
     const [searchQuery, setSearchQuery] = useState("");
-    const [filteredProducts, setFilteredProducts] = useState<ProductProps[]>([]);
-    const { toast } = useToast();
+    const [filteredProducts, setFilteredProducts] = useState<ProductProps[]>([])
 
     useEffect(() => {
       const fetchProducts = async () => {
@@ -33,11 +32,7 @@ export default function ProductGallery({
         }
         catch (error) {
           console.error("Error fetching products:", error)
-          toast({
-            title: "Error",
-            description: "Failed to load products. Please try again.",
-            variant: "destructive",
-          })
+          toast.error("Failed to load products. Please try again.")
         }
         finally {
           setIsLoading(false);

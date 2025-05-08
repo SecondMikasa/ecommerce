@@ -25,7 +25,8 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { useToast } from "@/components/ui/use-toast"
+
+import { toast } from "sonner";
 
 import { ProductProps } from "@/lib/types"
 // import { ApiResponse } from "@/lib/ApiResponse"
@@ -56,14 +57,13 @@ export default function ProductSubmissionForm({
     onProductSubmit,
     setIsLoading
 }: ProductSubmissionFormProps) {
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const { toast } = useToast();
+    const [isSubmitting, setIsSubmitting] = useState(false)
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
             name: "",
-            price: undefined,
+            price: 0,
             description: "",
             image_url: "",
         },
@@ -74,20 +74,13 @@ export default function ProductSubmissionForm({
         try {
             const response = await axios.post('/api/products', values);
 
-            toast({
-                title: "Product submitted!",
-                description: "Your product has been successfully added.",
-            });
+            toast.success("Your product has been successfully added.")
 
             onProductSubmit(response.data);
             form.reset();
         } catch (error) {
-            console.error("Error submitting product:", error);
-            toast({
-                title: "Error",
-                description: "Failed to submit product. Please try again.",
-                variant: "destructive",
-            });
+            console.error("Error submitting product:", error)
+            toast.error("Failed to submit product. Please try again.")
         } finally {
             setIsSubmitting(false);
         }
@@ -95,7 +88,7 @@ export default function ProductSubmissionForm({
 
     return (
         <div className="rounded-lg border bg-card p-6 shadow-sm">
-            <div className="mb-6">
+            <div className="mb-6 text-center">
                 <h2 className="text-2xl font-semibold tracking-tight">
                     Submit a New Product
                 </h2>
