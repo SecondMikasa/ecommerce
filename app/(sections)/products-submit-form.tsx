@@ -50,12 +50,10 @@ const formSchema = z.object({
 
 interface ProductSubmissionFormProps {
     onProductSubmit: (product: ProductProps) => void;
-    setIsLoading: (isLoading: boolean) => void;
 }
 
 export default function ProductSubmissionForm({
     onProductSubmit,
-    setIsLoading
 }: ProductSubmissionFormProps) {
     const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -87,8 +85,8 @@ export default function ProductSubmissionForm({
     }
 
     return (
-        <div className="rounded-lg border bg-card p-6 shadow-sm">
-            <div className="mb-6 text-center">
+        <div className="max-w-2xl mx-auto rounded-lg border bg-card p-8 shadow-lg">
+            <div className="mb-8 text-center">
                 <h2 className="text-2xl font-semibold tracking-tight">
                     Submit a New Product
                 </h2>
@@ -188,25 +186,28 @@ export default function ProductSubmissionForm({
                         )}
                     />
 
-                    <Button
-                        type="submit"
-                        className="w-full md:w-auto"
-                        disabled={isSubmitting}
-                    >
-                        {
-                            isSubmitting ?
-                                (
-                                    <>
-                                        <Loader2
-                                            className="mr-2 h-4 w-4 animate-spin"
-                                        />
-                                        Submitting...
-                                    </>
-                                ) : (
-                                    "Submit Product"
-                                )
-                        }
-                    </Button>
+                    <div className="flex justify-end pt-4"> 
+                        <Button
+                            type="submit"
+                            className="w-full sm:w-auto"
+                            disabled={isSubmitting}
+                            size="lg"
+                        >
+                            {
+                                isSubmitting ?
+                                    (
+                                        <>
+                                            <Loader2
+                                                className="mr-2 h-4 w-4 animate-spin"
+                                            />
+                                            Submitting...
+                                        </>
+                                    ) : (
+                                        "Submit Product"
+                                    )
+                            }
+                        </Button>
+                    </div>
                 </form>
             </Form>
         </div>
