@@ -49,18 +49,22 @@ A simple Next.js application demonstrating product submission and display functi
 
 ## Prerequisites
 
+*   Next.js (v15.x or later)
 *   Node.js (v18.x or later recommended)
 *   npm, yarn, or pnpm
 
 ## Getting Started
 
 1.  **Clone the repository:**
+
     ```bash
-    git clone [your-repository-url]
-    cd [repository-name]
+    git clone https://github.com/SecondMikasa/ecommerce.git
+    cd ./ecommerce
     ```
 
 2.  **Install dependencies:**
+
+    Install require packages in both frontend and backend via navigating to that folder
     ```bash
     npm install
     # or
@@ -70,29 +74,55 @@ A simple Next.js application demonstrating product submission and display functi
     ```
 
 3.  **Ensure Backend API is Running:**
+
     This project relies on an API endpoint at `/api/products` to handle product submissions.
-    *   If you're using Next.js API Routes, ensure `app/api/products/route.ts` (or your equivalent) is set up to handle `POST` requests.
-    *   If using an external backend, ensure it's running and accessible.
+    To run the backend via nodemon
+    ```bash
+    npm dev
+    # or
+    yarn dev
+    #or
+    pnpm dev
+    ```
+    *   If you're using Next.js API Routes, ensure `app/api/products` is set up to handle requests. In such case, you don't need to set up backend folder
+
 
 5. **Initialise Prisma**
+    
+    Locate to backend folder
+    ```
+    cd ./backend
+    ```
+    and 
     ```
     npx prisma init
     ```
 
 6. **Set up PostreSql**   
+
     Go to pgAdmin4, create a new database under the name of ecommerce
 
 7. **Define the DATABASE URL**
+
     We need to specify the database connection string for the project
     ```
     DATABASE_URL = "postgresql://(nameOfUser):(yourPassword)@localhost:5432/(nameOfDatabase)?schema=public"
     ```
 
 8. **Connect ORM To Database**
+
     Type the following to set up prisma connection to your database
 
     ```
     npx prisma migrate dev --name init
+    ```
+
+9. **STarting the frontend**
+
+    Locate to frontend folder and run it
+    ```
+    cd ./frontend
+    pnpm run dev
     ```
 
 ## Key Components Overview
