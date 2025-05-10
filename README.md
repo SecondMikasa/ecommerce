@@ -76,8 +76,10 @@ A simple Next.js application demonstrating product submission and display functi
 3.  **Ensure Backend API is Running:**
 
     This project relies on an API endpoint at `/api/products` to handle product submissions.
-    To run the backend via nodemon
+       To run the backend via nodemon locate to backend folder
     ```bash
+    cd ./backend 
+    
     npm dev
     # or
     yarn dev
@@ -86,14 +88,8 @@ A simple Next.js application demonstrating product submission and display functi
     ```
     *   If you're using Next.js API Routes, ensure `app/api/products` is set up to handle requests. In such case, you don't need to set up backend folder
 
-
 5. **Initialise Prisma**
     
-    Locate to backend folder
-    ```
-    cd ./backend
-    ```
-    and 
     ```
     npx prisma init
     ```
