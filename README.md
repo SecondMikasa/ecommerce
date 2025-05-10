@@ -5,11 +5,11 @@ A simple Next.js application demonstrating product submission and display functi
 
 ## Screenshots
 
-![Product Add Form Screenshot](./public/screenshot1.png)  
+![Product Add Form Screenshot](./frontend/public/Screenshot1.png)  
 
-![Products Gallery Screenshot](./public/screenshot2.png)  
+![Products Gallery Screenshot](./frontend/public/Screenshot2.png)  
 
-![Database Exemplar Screenshot](./public/screenshot3.png)  
+![Database Exemplar Screenshot](./frontend/public/Screenshot3.png)  
 
 ## Features
 
@@ -44,7 +44,7 @@ A simple Next.js application demonstrating product submission and display functi
     *   [Sonner](https://sonner.emilkowal.ski/) (for toast notifications)
     *   [Axios](https://axios-http.com/) (for HTTP requests)
     *   [Tailwind CSS](https://tailwindcss.com/)
-*   **Backend (Assumed):**
+*   **Backend:**
     *   The application expects an API endpoint at `/api/products` to handle `POST` requests for new product submissions. This could be a Next.js API Route or a separate backend service.
 
 ## Prerequisites
@@ -128,12 +128,12 @@ A simple Next.js application demonstrating product submission and display functi
 *   **Success Response (201 Created):**
     ```json
     {
-      "id": "string", // Or whatever your API returns
+      "id": "string", 
       "name": "string",
       "price": "number",
       "description": "string",
       "image_url": "string",
-      "createdAt": "string (ISO date)" // Example
+      "createdAt": "string (ISO date)" 
     }
     ```
 *   **Error Response (e.g., 400 Bad Request, 500 Internal Server Error):**

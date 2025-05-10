@@ -6,7 +6,7 @@ import {
     Loader2
 } from "lucide-react"
 
-import axios from "axios"
+import apiClient from "@/lib/axios";
 
 import { Input } from "@/components/ui/input"
 import { toast } from "sonner";
@@ -27,7 +27,7 @@ export default function ProductGallery({
       const fetchProducts = async () => {
         setIsLoading(true);
         try {
-          const response = await axios.get('/api/products')
+          const response = await apiClient.get('/products')
           setProducts(response.data)
         }
         catch (error) {

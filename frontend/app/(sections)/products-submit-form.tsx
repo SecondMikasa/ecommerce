@@ -6,7 +6,7 @@ import {
     Loader2
 } from "lucide-react"
 
-import axios from "axios"
+import apiClient from "@/lib/axios";
 
 import { useForm } from "react-hook-form"
 
@@ -70,7 +70,7 @@ export default function ProductSubmissionForm({
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         setIsSubmitting(true);
         try {
-            const response = await axios.post('/api/products', values);
+            const response = await apiClient.post('/products', values);
 
             toast.success("Your product has been successfully added.")
 
