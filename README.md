@@ -5,11 +5,11 @@ A simple Next.js application demonstrating product submission and display functi
 
 ## Screenshots
 
-![Product Add Form Screenshot](./public/screenshot1.png)  
+![Product Add Form Screenshot](./public/Screenshot1.png)  
 
-![Products Gallery Screenshot](./public/screenshot2.png)  
+![Products Gallery Screenshot](./public/Screenshot2.png)  
 
-![Database Exemplar Screenshot](./public/screenshot3.png)  
+![Database Exemplar Screenshot](./public/Screenshot3.png)  
 
 ## Features
 
