@@ -3,8 +3,8 @@ import { z } from 'zod'
 export const productCreateSchema = z.object({
     name: z
         .string()
-        .min(8, {
-        message: "Product name must be at least 8 characters"
+        .min(5, {
+        message: "Product name must be at least 5 characters"
     }),
     price: z
         .coerce

@@ -32,8 +32,8 @@ import { ProductProps } from "@/lib/types"
 // import { ApiResponse } from "@/lib/ApiResponse"
 
 const formSchema = z.object({
-    name: z.string().min(8, {
-        message: "Product name must be at least 8 characters.",
+    name: z.string().min(5, {
+        message: "Product name must be at least 5 characters.",
     }),
     price: z.coerce.number().positive({
         message: "Price must be a positive number.",

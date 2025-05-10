@@ -63,14 +63,14 @@ export default function ProductCard({ product }: ProductCardProps) {
           </p>
         </CardContent>
         
-        <CardFooter className="pt-2">
+        {/* <CardFooter className="pt-2">
           <motion.button
             className="w-full py-2 bg-primary text-primary-foreground rounded-md font-medium text-sm"
             whileTap={{ scale: 0.97 }}
           >
             View Details
           </motion.button>
-        </CardFooter>
+        </CardFooter> */}
       </Card>
     </motion.div>
   )
