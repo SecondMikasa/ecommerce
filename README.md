@@ -1,36 +1,155 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+      
+# Product Management App
+
+A simple Next.js application demonstrating product submission and display functionalities. It features a clean, tabbed interface built with Shadcn UI, robust form handling with React Hook Form and Zod for validation, and user feedback via Sonner toasts.
+
+## Screenshots
+
+![Product Add Form Screenshot](./public/screenshot1.png)  
+
+![Products Gallery Screenshot](./public/screenshot2.png)  
+
+![Database Exemplar Screenshot](./public/screenshot3.png)  
+
+## Features
+
+*   **Product Submission:**
+    *   Dedicated form to add new products.
+    *   Fields: Name, Price, Description, Image URL (optional).
+    *   Client-side validation using Zod for robust error handling.
+    *   Loading state indication during submission.
+*   **Product Gallery:**
+    *   Displays submitted products.
+    *   (Functionality like editing/deleting would be future enhancements).
+*   **Tabbed Interface:**
+    *   Easily switch between the "Product Submission" form and the "My Products" gallery.
+    *   Active tab indication, designed to work well in both light and dark modes.
+*   **Notifications:**
+    *   User-friendly toast notifications (via Sonner) for successful submissions or errors.
+*   **Styling:**
+    *   Modern UI built with [Shadcn UI](https://ui.shadcn.com/) components.
+    *   Responsive design.
+    *   Utilizes Tailwind CSS for utility-first styling.
+
+## Tech Stack
+
+*   **Frontend:**
+    *   [Next.js](https://nextjs.org/) (App Router)
+    *   [React](https://reactjs.org/)
+    *   [TypeScript](https://www.typescriptlang.org/)
+    *   [Shadcn UI](https://ui.shadcn.com/) (for UI components like Tabs, Button, Input, Form, Textarea)
+    *   [React Hook Form](https://react-hook-form.com/) (for form management)
+    *   [Zod](https://zod.dev/) (for schema validation)
+    *   [Lucide React](https://lucide.dev/) (for icons)
+    *   [Sonner](https://sonner.emilkowal.ski/) (for toast notifications)
+    *   [Axios](https://axios-http.com/) (for HTTP requests)
+    *   [Tailwind CSS](https://tailwindcss.com/)
+*   **Backend (Assumed):**
+    *   The application expects an API endpoint at `/api/products` to handle `POST` requests for new product submissions. This could be a Next.js API Route or a separate backend service.
+
+## Prerequisites
+
+*   Node.js (v18.x or later recommended)
+*   npm, yarn, or pnpm
 
 ## Getting Started
 
-First, run the development server:
+1.  **Clone the repository:**
+    ```bash
+    git clone [your-repository-url]
+    cd [repository-name]
+    ```
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    # or
+    yarn install
+    # or
+    pnpm install
+    ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3.  **Ensure Backend API is Running:**
+    This project relies on an API endpoint at `/api/products` to handle product submissions.
+    *   If you're using Next.js API Routes, ensure `app/api/products/route.ts` (or your equivalent) is set up to handle `POST` requests.
+    *   If using an external backend, ensure it's running and accessible.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+5. **Initialise Prisma**
+    ```
+    npx prisma init
+    ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+6. **Set up PostreSql**   
+    Go to pgAdmin4, create a new database under the name of ecommerce
 
-## Learn More
+7. **Define the DATABASE URL**
+    We need to specify the database connection string for the project
+    ```
+    DATABASE_URL = "postgresql://(nameOfUser):(yourPassword)@localhost:5432/(nameOfDatabase)?schema=public"
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+8. **Connect ORM To Database**
+    Type the following to set up prisma connection to your database
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    ```
+    npx prisma migrate dev --name init
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Key Components Overview
 
-## Deploy on Vercel
+*   **`ProductTabs.tsx`:**
+    *   Manages the active tab state ("submission" or "products").
+    *   Handles the `products` array state and passes it down to `ProductGallery`.
+    *   Passes `onProductSubmit` callback to `ProductSubmitForm` to update the products list.
+*   **`(sections)/products-submit-form.tsx`:**
+    *   Uses `react-hook-form` and `zodResolver` for form state management and validation.
+    *   Defines the form schema (`formSchema`) using Zod.
+    *   Handles form submission, makes an API call to `/api/products` using Axios.
+    *   Shows loading states and toast notifications.
+*   **`(sections)/products-gallery.tsx`:**
+    *   (Assumed) Renders the list of `products`.
+    *   Likely handles displaying product information like name, price, image.
+    *   Could potentially fetch initial products from an API.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## API Endpoint
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### `POST /api/products`
+
+*   **Purpose:** To submit a new product.
+*   **Request Body (JSON):**
+    ```json
+    {
+      "name": "string (min 8 chars)",
+      "price": "number (positive)",
+      "description": "string (min 10 chars)",
+      "image_url": "string (valid URL, optional)"
+    }
+    ```
+*   **Success Response (201 Created):**
+    ```json
+    {
+      "id": "string", // Or whatever your API returns
+      "name": "string",
+      "price": "number",
+      "description": "string",
+      "image_url": "string",
+      "createdAt": "string (ISO date)" // Example
+    }
+    ```
+*   **Error Response (e.g., 400 Bad Request, 500 Internal Server Error):**
+    ```json
+    {
+      "message": "Error description"
+    }
+    ```
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1.  Fork the Project
+2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4.  Push to the Branch (`git push origin feature/AmazingFeature`)
+5.  Open a Pull Request
+
