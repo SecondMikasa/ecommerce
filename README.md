@@ -71,8 +71,12 @@ A simple Next.js application demonstrating product submission and display functi
 
 3.  **Ensure Backend API is Running:**
     This project relies on an API endpoint at `/api/products` to handle product submissions.
+    Locate to backend folder
+    ```
+    cd .\backend\
+    ```
     *   If you're using Next.js API Routes, ensure `app/api/products/route.ts` (or your equivalent) is set up to handle `POST` requests.
-    *   If using an external backend, ensure it's running and accessible.
+      
 
 5. **Initialise Prisma**
     ```
