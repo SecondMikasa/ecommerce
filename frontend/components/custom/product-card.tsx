@@ -16,7 +16,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { ProductCardProps } from "@/lib/types"
-import { formatCurrency, formatDate } from "@/lib/utils"
+import { formatCurrency, formatDate } from "@/lib/functions"
 
 
 export default function ProductCard({ product }: ProductCardProps) {

@@ -85,7 +85,7 @@ export default function ProductSubmissionForm({
     }
 
     return (
-        <div className="max-w-2xl mx-auto rounded-lg border bg-card p-8 shadow-lg">
+        <div>
             <div className="mb-8 text-center">
                 <h2 className="text-2xl font-semibold tracking-tight">
                     Submit a New Product
