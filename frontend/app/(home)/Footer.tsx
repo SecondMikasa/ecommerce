@@ -1,4 +1,5 @@
-import { Heart, Github } from "lucide-react";
+import { FaGithub } from "react-icons/fa";
+import { FaSquareWebAwesome } from "react-icons/fa6";
 
 export default function Footer() {
   return (
@@ -14,18 +15,18 @@ export default function Footer() {
               href="https://arnimfolio.vercel.app "
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
+              <FaSquareWebAwesome className="h-4 w-4" />
               SecondMikasa
             </a>
-
             <a
               href="https://github.com/SecondMikasa "
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
-              <Github className="h-4 w-4" />
+              <FaGithub className="h-4 w-4" />
               GitHub
             </a>
           </div>

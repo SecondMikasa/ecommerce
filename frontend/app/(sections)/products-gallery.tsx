@@ -40,7 +40,7 @@ export default function ProductGallery({
       }
 
       fetchProducts()
-    }, [setProducts, setIsLoading, toast])
+    }, [setProducts, setIsLoading])
 
     useEffect(() => {
       if (searchQuery.trim() === "") {
