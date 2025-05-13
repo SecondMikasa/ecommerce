@@ -1,7 +1,7 @@
 // server.js
 require('dotenv').config(); // Load environment variables from .env file
 const express = require('express');
-const { PrismaClient } = require('@prisma/client');
+const { PrismaClient } = require('./lib/generated/prisma');
 const { z } = require('zod');
 const cors = require('cors');
 
