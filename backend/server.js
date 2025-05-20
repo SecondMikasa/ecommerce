@@ -4,6 +4,8 @@ const { PrismaClient } = require('./lib/generated/prisma');
 const { z } = require('zod');
 const cors = require('cors');
 
+const getRelevantKeywords = require('./lib/aiSearch')
+
 const app = express();
 const prisma = new PrismaClient()
 const PORT = process.env.PORT || 3001;
@@ -101,7 +103,7 @@ app.post('/api/deleteProduct', async (req, res) => {
             }
         })
 
-        res.status(200).json({
+        res.status(201).json({
             message: "Product deleted successfully",
             deletedProduct
         })
@@ -110,6 +112,24 @@ app.post('/api/deleteProduct', async (req, res) => {
         console.error('Error deleting product:', error);
 
         res.status(500).json({ error: 'Failed to create product' });
+    }
+})
+
+app.post('/api/search', async (req, res) => {
+    try {
+        const { query } = req.body
+
+        const keywords = await getRelevantKeywords(query)
+
+        res.status(201).json({
+            keywords
+        })
+    } catch (error) {
+        console.log('Error processing search:', error)
+
+        res.status(500).json({
+            error: 'Failed to process search'
+        })
     }
 })
 

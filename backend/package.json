@@ -14,6 +14,7 @@
   "license": "ISC",
   "packageManager": "pnpm@10.5.2",
   "dependencies": {
+    "@mistralai/mistralai": "^1.6.0",
     "@prisma/client": "^6.7.0",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
