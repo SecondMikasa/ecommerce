@@ -70,7 +70,7 @@ export default function ProductSubmissionForm({
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         setIsSubmitting(true);
         try {
-            const response = await apiClient.post('/products', values);
+            const response = await apiClient.post('/addProduct', values);
 
             toast.success("Your product has been successfully added.")
 

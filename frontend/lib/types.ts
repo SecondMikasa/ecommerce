@@ -16,11 +16,12 @@ export interface ProductFormDataProps {
 
 export interface ProductGalleryProps {
   products: ProductProps[];
-  setProducts: (products: ProductProps[]) => void;
+  setProducts: React.Dispatch<React.SetStateAction<ProductProps[]>>;
   isLoading: boolean;
-  setIsLoading: (isLoading: boolean) => void;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface ProductCardProps {
-  product: ProductProps;
+   product: ProductProps;
+  onDelete?: () => void;
 }

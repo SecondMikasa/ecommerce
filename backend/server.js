@@ -1,20 +1,18 @@
-// server.js
-require('dotenv').config(); // Load environment variables from .env file
-const express = require('express');
+require('dotenv').config()
+const express = require('express')
 const { PrismaClient } = require('./lib/generated/prisma');
 const { z } = require('zod');
 const cors = require('cors');
 
 const app = express();
-const prisma = new PrismaClient();
+const prisma = new PrismaClient()
 const PORT = process.env.PORT || 3001;
 
 // Middleware
-app.use(cors()); // Enable CORS for all routes (adjust as needed for production)
-app.use(express.json()); // Parse JSON request bodies
-app.use(express.urlencoded({ extended: true })); // Parse URL-encoded request bodies
+app.use(cors())
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
 
-// --- Zod Schema (same as your frontend/Next.js backend) ---
 const productCreateSchema = z.object({
     name: z.string().min(8, {
         message: "Product name must be at least 8 characters.",
@@ -28,9 +26,9 @@ const productCreateSchema = z.object({
     image_url: z.string().url({
         message: "Please enter a valid URL.",
     })
-    .optional()
-    .or(z.literal(''))
-    .transform(val => (val === '' ? null : val)), // Transform empty string to null for DB
+        .optional()
+        .or(z.literal(''))
+        .transform(val => (val === '' ? null : val)), // Transform empty string to null for DB
 });
 
 // --- API Routes ---
@@ -40,18 +38,21 @@ app.get('/api/products', async (req, res) => {
     try {
         const products = await prisma.product.findMany({
             orderBy: {
-                created_at: 'desc', // Ensure 'created_at' field exists in your schema.prisma
+                created_at: 'desc',
             },
-        });
-        res.status(200).json(products);
-    } catch (error) {
-        console.error('Error fetching products:', error);
+        })
+        console.log('Fetched products:', products)
+        res.status(200).json(products)
+    }
+    catch (error) {
+        console.error('Error fetching products:', error)
+
         res.status(500).json({ error: 'Failed to fetch products' });
     }
-});
+})
 
 // POST /api/products - Create a new product
-app.post('/api/products', async (req, res) => {
+app.post('/api/addProduct', async (req, res) => {
     try {
         const body = req.body;
 
@@ -85,6 +86,32 @@ app.post('/api/products', async (req, res) => {
         res.status(500).json({ error: 'Failed to create product' });
     }
 });
+
+app.post('/api/deleteProduct', async (req, res) => {
+    try {
+        const { productId } = req.body
+
+        if (!productId) {
+            return res.status(404).json({ error: 'Failed to fetch productId' })
+        }
+
+        const deletedProduct = await prisma.product.delete({
+            where: {
+                id: productId
+            }
+        })
+
+        res.status(200).json({
+            message: "Product deleted successfully",
+            deletedProduct
+        })
+    }
+    catch (error) {
+        console.error('Error deleting product:', error);
+
+        res.status(500).json({ error: 'Failed to create product' });
+    }
+})
 
 // Basic route for testing
 app.get('/', (req, res) => {
